@@ -1,14 +1,12 @@
 package com.example.copper15.ui
 
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.copper15.BR
 import com.example.copper15.R
 import com.example.copper15.databinding.FragmentListOfferBinding
 import com.example.copper15.ui.adapter.DataBindingGenericAdapter
 import com.example.copper15.ui.base.BaseFragment
-import com.example.copper15.viewmodel.ListOfferViewModel
 
 
 class ListOfferFragment : BaseFragment<FragmentListOfferBinding, ListOfferViewModel>() {

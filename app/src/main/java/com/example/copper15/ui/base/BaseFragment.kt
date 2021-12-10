@@ -11,7 +11,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
-import com.example.copper15.viewmodel.ViewModelFactory
+import com.example.copper15.di.ViewModelFactory
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 

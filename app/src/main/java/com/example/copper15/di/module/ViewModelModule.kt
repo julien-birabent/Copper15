@@ -3,8 +3,8 @@ package com.example.copper15.di.module
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.copper15.di.ViewModelKey
-import com.example.copper15.viewmodel.ListOfferViewModel
-import com.example.copper15.viewmodel.ViewModelFactory
+import com.example.copper15.ui.ListOfferViewModel
+import com.example.copper15.di.ViewModelFactory
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -15,7 +15,7 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(ListOfferViewModel::class)
-    abstract fun bindListOfferViewModel(viewModel:ListOfferViewModel): ViewModel
+    abstract fun bindListOfferViewModel(viewModel: ListOfferViewModel): ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(viewModelFactory: ViewModelFactory): ViewModelProvider.Factory

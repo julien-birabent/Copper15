@@ -1,4 +1,4 @@
-package com.example.copper15.viewmodel
+package com.example.copper15.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
