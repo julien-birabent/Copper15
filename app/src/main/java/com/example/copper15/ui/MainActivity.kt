@@ -1,4 +1,4 @@
-package com.example.copper15.ui.activity
+package com.example.copper15.ui
 
 import android.os.Bundle
 import android.view.Menu

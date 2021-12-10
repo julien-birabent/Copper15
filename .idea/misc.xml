@@ -5,6 +5,10 @@
       <map>
         <entry key="app/src/main/res/drawable/item_decoration_divider_transparent.xml" value="0.11944444444444445" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19947916666666668" />
+        <entry key="app/src/main/res/layout/content_main.xml" value="0.3609375" />
+        <entry key="app/src/main/res/layout/fragment_first.xml" value="0.3609375" />
+        <entry key="app/src/main/res/layout/fragment_list_offer.xml" value="0.2185089974293059" />
+        <entry key="app/src/main/res/layout/fragment_second.xml" value="0.3609375" />
       </map>
     </option>
   </component>

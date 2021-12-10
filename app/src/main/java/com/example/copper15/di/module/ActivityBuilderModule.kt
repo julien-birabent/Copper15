@@ -1,6 +1,6 @@
 package com.example.copper15.di.module
 
-import com.example.copper15.ui.activity.MainActivity
+import com.example.copper15.ui.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

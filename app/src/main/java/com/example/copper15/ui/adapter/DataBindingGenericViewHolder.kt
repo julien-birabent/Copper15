@@ -8,8 +8,8 @@ class DataBindingGenericViewHolder(val binding: ViewDataBinding) :
 
     fun bind(viewTypeHolder: ViewTypeHolder<*, *>) {
         with(viewTypeHolder) {
-            binding.setVariable(BR.item, viewData)
-            callback?.let { binding.setVariable(BR.callback, callback) }
+            //binding.setVariable(BR.item, viewData)
+            //callback?.let { binding.setVariable(BR.callback, callback) }
             binding.executePendingBindings()
         }
     }
