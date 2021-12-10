@@ -6,9 +6,10 @@ import com.example.copper15.di.component.DaggerApplicationComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import dagger.android.support.DaggerApplication
 import javax.inject.Inject
 
-class ThisApplication : Application(), HasAndroidInjector {
+class ThisApplication : DaggerApplication() {
 
     private lateinit var component: ApplicationComponent
 
@@ -25,14 +26,10 @@ class ThisApplication : Application(), HasAndroidInjector {
         fun applicationComponent(): ApplicationComponent? = instance?.component
     }
 
-    override fun onCreate() {
-        super.onCreate()
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
         component = DaggerApplicationComponent.builder()
             .application(this)
             .build()
-        component.inject(this)
+        return component
     }
-
-    override fun androidInjector(): AndroidInjector<Any> = dispatchingInjector
-
 }

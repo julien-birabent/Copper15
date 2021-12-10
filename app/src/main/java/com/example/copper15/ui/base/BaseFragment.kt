@@ -12,10 +12,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import com.example.copper15.viewmodel.ViewModelFactory
-import dagger.android.support.AndroidSupportInjection
+import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-abstract class BaseFragment<LayoutBinding : ViewDataBinding, VM : ViewModel> : Fragment() {
+abstract class BaseFragment<LayoutBinding : ViewDataBinding, VM : ViewModel> : DaggerFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -29,7 +29,6 @@ abstract class BaseFragment<LayoutBinding : ViewDataBinding, VM : ViewModel> : F
     abstract fun provideViewModel(): VM
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        performDependencyInjection()
         super.onCreate(savedInstanceState)
         viewModel = provideViewModel()
         setHasOptionsMenu(true)
@@ -64,8 +63,6 @@ abstract class BaseFragment<LayoutBinding : ViewDataBinding, VM : ViewModel> : F
             else -> super.onOptionsItemSelected(item)
         }
     }
-
-    private fun performDependencyInjection() = run { AndroidSupportInjection.inject(this) }
 
     fun Fragment.displayNavigateUpButton() {
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)

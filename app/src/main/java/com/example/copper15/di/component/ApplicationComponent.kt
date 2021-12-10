@@ -6,6 +6,8 @@ import com.example.copper15.di.module.*
 import com.example.copper15.domain.UseCase
 import dagger.BindsInstance
 import dagger.Component
+import dagger.android.AndroidInjectionModule
+import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
@@ -15,14 +17,12 @@ import javax.inject.Singleton
     modules = [
         AndroidSupportInjectionModule::class,
         AppModule::class,
+        ViewModule::class,
         ViewModelModule::class,
-        ActivityBuilderModule::class,
         DataSourceModule::class,
         RepositoryModule::class]
 )
-interface ApplicationComponent {
-
-    fun inject(application: ThisApplication)
+interface ApplicationComponent :AndroidInjector<ThisApplication> {
 
     fun inject(useCase: UseCase.Injector)
 

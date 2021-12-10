@@ -11,8 +11,11 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.copper15.R
 import com.example.copper15.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
+import dagger.android.AndroidInjection
+import dagger.android.support.AndroidSupportInjection
+import dagger.android.support.DaggerAppCompatActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : DaggerAppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
