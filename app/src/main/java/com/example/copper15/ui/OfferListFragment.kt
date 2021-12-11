@@ -13,7 +13,7 @@ import com.example.copper15.ui.adapter.DataBindingGenericAdapter
 import com.example.copper15.ui.base.BaseFragment
 
 
-class ListOfferFragment : BaseFragment<FragmentListOfferBinding, ListOfferViewModel>() {
+class OfferListFragment : BaseFragment<FragmentListOfferBinding, ListOfferViewModel>() {
 
     override var viewModelBindingVariable: Int = BR.viewModel
     override var layoutResId: Int = R.layout.fragment_list_offer

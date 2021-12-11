@@ -1,6 +1,6 @@
 package com.example.copper15.di.module
 
-import com.example.copper15.ui.ListOfferFragment
+import com.example.copper15.ui.OfferListFragment
 import com.example.copper15.ui.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -12,5 +12,5 @@ abstract class ViewModule {
     abstract fun contributeMainActivity(): MainActivity
 
     @ContributesAndroidInjector
-    abstract fun contributeListOfferFragment(): ListOfferFragment
+    abstract fun contributeListOfferFragment(): OfferListFragment
 }

@@ -15,13 +15,31 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/ViewContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/test"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/offer_list_title"
+            style="@style/HeaderLarge"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content"
+            android:text="@string/title_shop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/offer_list"
+            layout="@layout/component_list_with_loading_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/offer_list_title"
+            bind:adapter="@{adapter}"
+            bind:isLoading="@{viewModel.isLoadingOffers}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
