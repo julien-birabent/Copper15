@@ -8,7 +8,6 @@
     <fragment
         android:id="@+id/FirstFragment"
         android:name="com.example.copper15.ui.OfferListFragment"
-        android:label="@string/app_name"
         tools:layout="@layout/fragment_list_offer">
     </fragment>
 </navigation>

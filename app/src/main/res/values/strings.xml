@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Copper15</string>
     <string name="action_settings">Settings</string>
-    <string name="title_shop">Shop</string>
+    <string name="title_shop">Welcome to Copper 15\'s Shop</string>
 
     <string name="body_cash_back_eligibility">%s Cash Back</string>
 </resources>
