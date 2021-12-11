@@ -17,7 +17,7 @@ class OfferRepository @Inject constructor(
     private val offerModelAssembler: OfferModelAssembler,
     private val offerDao: OfferDao
 ) {
-    fun getAllOffers(): Flowable<out ResultState<List<Offer>>> {
+    fun getAllOffers(): Flowable<ResultState<List<Offer>>> {
         val loadingEmission = Flowable.just(ResultState.Loading(listOf<Offer>()))
 
         val actualDataEmission = Flowable.just(offerJsonDataSource.loadAllOffers())

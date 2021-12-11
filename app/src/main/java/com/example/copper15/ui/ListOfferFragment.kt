@@ -1,10 +1,14 @@
 package com.example.copper15.ui
 
+import android.util.Log
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import com.example.copper15.BR
 import com.example.copper15.R
+import com.example.copper15.data.repository.ResultState
+import com.example.copper15.data.repository.data
 import com.example.copper15.databinding.FragmentListOfferBinding
+import com.example.copper15.domain.viewmodel.ListOfferViewModel
 import com.example.copper15.ui.adapter.DataBindingGenericAdapter
 import com.example.copper15.ui.base.BaseFragment
 
@@ -28,5 +32,12 @@ class ListOfferFragment : BaseFragment<FragmentListOfferBinding, ListOfferViewMo
     override fun onStart() {
         super.onStart()
 
+        viewModel.allOffers.observe(viewLifecycleOwner){ results ->
+            when(results){
+                is ResultState.Error -> Log.d("TEST", "Error "+ results.data.toString(), results.throwable)
+                is ResultState.Loading -> Log.d("TEST", "Loading "+ results.data.toString())
+                is ResultState.Success -> Log.d("TEST", "Success " + results.data.toString())
+            }
+        }
     }
 }

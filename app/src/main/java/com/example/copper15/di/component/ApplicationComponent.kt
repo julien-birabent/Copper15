@@ -3,10 +3,9 @@ package com.example.copper15.di.component
 import android.app.Application
 import com.example.copper15.app.ThisApplication
 import com.example.copper15.di.module.*
-import com.example.copper15.domain.UseCase
+import com.example.copper15.domain.usecase.AsyncUseCase
 import dagger.BindsInstance
 import dagger.Component
-import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
@@ -24,7 +23,7 @@ import javax.inject.Singleton
 )
 interface ApplicationComponent :AndroidInjector<ThisApplication> {
 
-    fun inject(useCase: UseCase.Injector)
+    fun inject(useCase: AsyncUseCase.Injector)
 
     @Component.Builder
     interface Builder {
