@@ -1,5 +1,6 @@
-package com.example.copper15.ui
+package com.example.copper15.ui.screen.offers
 
+import android.widget.Toast
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import com.example.copper15.BR
@@ -12,8 +13,8 @@ import com.example.copper15.domain.viewmodel.ListOfferViewModel
 import com.example.copper15.ui.adapter.DataBindingGenericAdapter
 import com.example.copper15.ui.adapter.ItemSelectionCallback
 import com.example.copper15.ui.adapter.ViewTypeHolder
-import com.example.copper15.ui.base.BaseFragment
 import com.example.copper15.ui.item.OfferListItem
+import com.example.copper15.ui.screen.BaseFragment
 
 
 class OfferListFragment : BaseFragment<FragmentListOfferBinding, ListOfferViewModel>() {
@@ -40,6 +41,8 @@ class OfferListFragment : BaseFragment<FragmentListOfferBinding, ListOfferViewMo
                 results.data?.let { offersList ->
                     adapter.updateList(createAdapterList(offersList))
                 }
+            }else{
+                Toast.makeText(requireContext(), "Couldn't load the list of offers", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -54,5 +57,4 @@ class OfferListFragment : BaseFragment<FragmentListOfferBinding, ListOfferViewMo
             layoutResId = R.layout.item_offer_card
         )
     }
-
 }

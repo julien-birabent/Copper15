@@ -1,18 +1,14 @@
-package com.example.copper15.ui
+package com.example.copper15.ui.screen.offers
 
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.copper15.R
 import com.example.copper15.databinding.ActivityMainBinding
-import com.google.android.material.snackbar.Snackbar
-import dagger.android.AndroidInjection
-import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.DaggerAppCompatActivity
 
 class MainActivity : DaggerAppCompatActivity() {

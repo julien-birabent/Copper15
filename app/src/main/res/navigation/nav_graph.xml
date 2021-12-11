@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.example.copper15.ui.OfferListFragment"
+        android:name="com.example.copper15.ui.screen.offers.OfferListFragment"
         tools:layout="@layout/fragment_list_offer">
     </fragment>
 </navigation>

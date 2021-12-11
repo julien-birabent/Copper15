@@ -1,4 +1,4 @@
-package com.example.copper15.ui.base
+package com.example.copper15.ui.screen
 
 import android.os.Bundle
 import android.view.LayoutInflater
