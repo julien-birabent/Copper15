@@ -8,6 +8,7 @@
     </style>
 
     <style name="ViewContainer">
+        <item name="android:padding">16dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:background">@color/slight_dark_gray</item>
@@ -23,9 +24,6 @@
     <style name="Header.Large">
         <item name="android:textSize">@dimen/text_size_big</item>
         <item name="android:padding">16dp</item>
-    </style>
-
-    <style name="HeaderMedium.Light" parent="Header.Medium">
         <item name="android:textColor">@color/black_60</item>
     </style>
 
@@ -33,16 +31,8 @@
         <item name="android:textSize">@dimen/text_size_medium</item>
     </style>
 
-    <style name="HeaderSmall.Green" parent="Header.Small">
+    <style name="Header.Medium.Green" parent="Header.Medium">
         <item name="android:textColor">@color/pale_green</item>
-    </style>
-
-    <style name="HeaderSmall.Red" parent="Header.Small">
-        <item name="android:textColor">@color/red</item>
-    </style>
-
-    <style name="Header.Small">
-        <item name="android:textSize">@dimen/text_size_small</item>
     </style>
 
 </resources>

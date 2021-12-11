@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.copper15">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".app.ThisApplication"
         android:allowBackup="true"

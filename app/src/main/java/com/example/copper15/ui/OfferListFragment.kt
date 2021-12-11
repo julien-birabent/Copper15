@@ -1,6 +1,5 @@
 package com.example.copper15.ui
 
-import android.util.Log
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import com.example.copper15.BR
@@ -8,9 +7,13 @@ import com.example.copper15.R
 import com.example.copper15.data.repository.ResultState
 import com.example.copper15.data.repository.data
 import com.example.copper15.databinding.FragmentListOfferBinding
+import com.example.copper15.domain.model.Offer
 import com.example.copper15.domain.viewmodel.ListOfferViewModel
 import com.example.copper15.ui.adapter.DataBindingGenericAdapter
+import com.example.copper15.ui.adapter.ItemSelectionCallback
+import com.example.copper15.ui.adapter.ViewTypeHolder
 import com.example.copper15.ui.base.BaseFragment
+import com.example.copper15.ui.item.OfferListItem
 
 
 class OfferListFragment : BaseFragment<FragmentListOfferBinding, ListOfferViewModel>() {
@@ -32,12 +35,24 @@ class OfferListFragment : BaseFragment<FragmentListOfferBinding, ListOfferViewMo
     override fun onStart() {
         super.onStart()
 
-        viewModel.allOffers.observe(viewLifecycleOwner){ results ->
-            when(results){
-                is ResultState.Error -> Log.d("TEST", "Error "+ results.data.toString(), results.throwable)
-                is ResultState.Loading -> Log.d("TEST", "Loading "+ results.data.toString())
-                is ResultState.Success -> Log.d("TEST", "Success " + results.data.toString())
+        viewModel.allOffers.observe(viewLifecycleOwner) { results ->
+            if (results !is ResultState.Error) {
+                results.data?.let { offersList ->
+                    adapter.updateList(createAdapterList(offersList))
+                }
             }
         }
     }
+
+    private fun createAdapterList(offers: List<Offer>): List<ViewTypeHolder<OfferListItem<Offer>, ItemSelectionCallback<*>>> {
+        return offers.map { createItemViewTypeHolder(it) }
+    }
+
+    private fun createItemViewTypeHolder(item: Offer): ViewTypeHolder<OfferListItem<Offer>, ItemSelectionCallback<*>> {
+        return ViewTypeHolder(
+            viewData = OfferListItem(item.name, item.imageUrl, item.cashBack.toString(), item),
+            layoutResId = R.layout.item_offer_card
+        )
+    }
+
 }

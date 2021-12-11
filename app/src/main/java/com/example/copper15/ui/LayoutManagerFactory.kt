@@ -1,5 +1,6 @@
 package com.example.copper15.ui
 
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,15 +32,8 @@ class LayoutManagerFactory {
         }
 
         private fun applyDecorations(recyclerView: RecyclerView, orientation: Int) {
-            val dividerItemDecoration = DividerItemDecoration(
-                recyclerView.context,
-                orientation
-            ).apply {
-                recyclerView.context.getDrawable(R.drawable.item_decoration_divider_transparent)
-                    ?.let {
-                        setDrawable(it)
-                    }
-            }
+            val dividerDrawable = AppCompatResources.getDrawable(recyclerView.context,R.drawable.item_decoration_divider_transparent)
+            val dividerItemDecoration = DividerItemDecoration(recyclerView.context, orientation).apply { dividerDrawable?.let { setDrawable(it) } }
             recyclerView.addItemDecoration(dividerItemDecoration)
         }
     }
