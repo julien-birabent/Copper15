@@ -23,8 +23,6 @@ import javax.inject.Singleton
 )
 interface ApplicationComponent :AndroidInjector<ThisApplication> {
 
-    fun inject(useCase: AsyncUseCase.Injector)
-
     @Component.Builder
     interface Builder {
 

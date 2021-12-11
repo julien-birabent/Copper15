@@ -23,7 +23,7 @@ class OfferJsonDataSource @Inject constructor(
 
     private inline fun <reified T> readRawJson(@RawRes rawResId: Int): T {
         applicationContext.resources.openRawResource(rawResId).bufferedReader().use {
-            return gson.fromJson<T>(it, object : TypeToken<T>() {}.type)
+            return gson.fromJson(it, object : TypeToken<T>() {}.type)
         }
     }
 }

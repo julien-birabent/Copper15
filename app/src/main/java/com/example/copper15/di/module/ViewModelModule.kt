@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.copper15.di.ViewModelKey
 import com.example.copper15.di.ViewModelFactory
+import com.example.copper15.domain.viewmodel.ListOfferViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

@@ -11,7 +11,7 @@
             type="com.example.copper15.ui.adapter.DataBindingGenericAdapter" />
         <variable
             name="viewModel"
-            type="com.example.copper15.ui.ListOfferViewModel" />
+            type="com.example.copper15.domain.viewmodel.ListOfferViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -26,7 +26,7 @@ class OfferRepository @Inject constructor(
             .map { offerModelAssembler.assembleFromList(it) }
             .map { ResultState.Success(it) }
 
-        return Flowable.concat(loadingEmission, actualDataEmission)
+        return Flowable.concat(loadingEmission, actualDataEmission).onErrorReturn { ResultState.Error(it, null) }
     }
 
     private fun persistOffers(offerDTO: List<OfferDTO>) {
