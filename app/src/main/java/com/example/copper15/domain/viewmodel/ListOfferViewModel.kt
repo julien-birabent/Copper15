@@ -22,14 +22,8 @@ class ListOfferViewModel @Inject constructor(getAllOffersUseCase: GetAllOffersUs
     private val _sortByNameEnabled: BehaviorProcessor<Pair<OfferSort, Boolean>> =
         BehaviorProcessor.createDefault(OfferSort.ByName() to false)
 
-    val sortByNameEnabled: LiveData<Boolean>
-        get() = _sortByNameEnabled.map { (_, isEnabled) -> isEnabled }.toLiveData()
-
     private val _sortByCashBackEnabled: BehaviorProcessor<Pair<OfferSort, Boolean>> =
         BehaviorProcessor.createDefault(OfferSort.ByCashBack() to false)
-
-    val sortByNameCashBack: LiveData<Boolean>
-        get() = _sortByCashBackEnabled.map { (_, isEnabled) -> isEnabled }.toLiveData()
 
     private val sortOffers: Flowable<List<OfferSort>> =
         listOf(_sortByNameEnabled, _sortByCashBackEnabled).combineLatest { sorterList ->
@@ -39,7 +33,7 @@ class ListOfferViewModel @Inject constructor(getAllOffersUseCase: GetAllOffersUs
                 sorter
             }
         }
-    
+
     fun sortOfferByName(isEnabled: Boolean) =
         _sortByNameEnabled.onNext(OfferSort.ByName() to isEnabled)
 
