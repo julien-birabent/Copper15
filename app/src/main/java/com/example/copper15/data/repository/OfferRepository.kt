@@ -1,6 +1,5 @@
 package com.example.copper15.data.repository
 
-import android.util.Log
 import com.example.copper15.data.database.OfferDao
 import com.example.copper15.data.dto.OfferDTO
 import com.example.copper15.data.mapper.OfferEntityMapper
@@ -19,20 +18,23 @@ class OfferRepository @Inject constructor(
     private val offerModelAssembler: OfferModelAssembler
 ) {
     fun getAllOffers(): Flowable<ResultState<List<Offer>>> {
-        val loadingEmission = Flowable.just(ResultState.Loading(listOf<Offer>()))
-
-        val actualDataEmission = offerService.getAllOffers()
-            .toFlowable()
-            .map { persistOffers(it.offers) }
-            .flatMap { offerDao.loadAllOffers() }
-            .map { offerModelAssembler.assembleFromList(it) }
-            .map { ResultState.Success(it) }
-
-        return Flowable.concat(loadingEmission, actualDataEmission)
+        return Flowable.concat(loadCachedData(), fetchDataFromService())
             .onErrorReturn {
-                Log.e("TEST", it.toString())
                 ResultState.Error(it, null)
             }
+    }
+
+    private fun fetchDataFromService() : Flowable<ResultState<List<Offer>>> =
+        offerService.getAllOffers()
+        .map { persistOffers(it.offers) }
+        .flatMap { offerDao.loadAllOffers() }.toFlowable()
+        .map { offerModelAssembler.assembleFromList(it) }
+        .map { ResultState.Success(it) }
+
+
+    private fun loadCachedData() : Flowable<ResultState<List<Offer>>> {
+        val cachedData = offerDao.loadAllOffers().toFlowable()
+        return cachedData.map { ResultState.Loading(offerModelAssembler.assembleFromList(it)) }
     }
 
     private fun persistOffers(offerDTO: List<OfferDTO>) {

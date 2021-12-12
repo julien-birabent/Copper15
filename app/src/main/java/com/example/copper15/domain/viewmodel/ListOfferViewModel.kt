@@ -1,6 +1,5 @@
 package com.example.copper15.domain.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.toLiveData
@@ -22,10 +21,11 @@ class ListOfferViewModel @Inject constructor(getAllOffersUseCase: GetAllOffersUs
         .toLiveData()
 
     val isLoadingOffers : LiveData<Boolean> = _allOffers
+        .takeUntil { it !is ResultState.Loading }
         .map {
-            Log.d("TEST", "isLoading + $it")
             it is ResultState.Loading
         }
+        .distinctUntilChanged()
         .toLiveData()
 
 }

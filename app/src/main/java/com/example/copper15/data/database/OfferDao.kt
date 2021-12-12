@@ -1,7 +1,7 @@
 package com.example.copper15.data.database
 
 import androidx.room.*
-import io.reactivex.Flowable
+import io.reactivex.Single
 
 @Dao
 interface OfferDao {
@@ -12,5 +12,5 @@ interface OfferDao {
     fun updateOffers(offers: Array<out OfferEntity>)
 
     @Query("SELECT * FROM offers")
-    fun loadAllOffers(): Flowable<List<OfferEntity>>
+    fun loadAllOffers(): Single<List<OfferEntity>>
 }
