@@ -3,7 +3,6 @@ package com.example.copper15.data.repository
 import android.util.Log
 import com.example.copper15.data.database.OfferDao
 import com.example.copper15.data.dto.OfferDTO
-import com.example.copper15.data.service.LocalJsonOfferService
 import com.example.copper15.data.mapper.OfferEntityMapper
 import com.example.copper15.data.mapper.OfferModelAssembler
 import com.example.copper15.data.service.OfferService

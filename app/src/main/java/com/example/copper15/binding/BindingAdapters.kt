@@ -2,13 +2,10 @@ package com.example.copper15.binding
 
 import android.view.View
 import android.widget.ImageView
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.copper15.R
 import com.example.copper15.ui.LayoutManagerFactory
 
 object BindingAdapters {

@@ -3,7 +3,6 @@ package com.example.copper15.data.service
 import android.content.Context
 import androidx.annotation.RawRes
 import com.example.copper15.R
-import com.example.copper15.data.dto.OfferDTO
 import com.example.copper15.data.dto.OffersBatchDTO
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
