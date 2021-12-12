@@ -3,13 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="androidx.recyclerview.widget.RecyclerView"/>
+
+        <import type="androidx.recyclerview.widget.RecyclerView" />
+
         <variable
             name="isLoading"
             type="Boolean" />
+
         <variable
             name="adapter"
             type="com.example.copper15.ui.adapter.DataBindingGenericAdapter" />
+
         <variable
             name="orientation"
             type="Integer" />
@@ -19,27 +23,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/component_list"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/component_list_swipe_refresh_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:isRefreshing="@{isLoading}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:setAdapter="@{adapter}"
-            app:setOrientation="@{orientation}" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.core.widget.ContentLoadingProgressBar
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:visibility="@{isLoading}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/component_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:setAdapter="@{adapter}"
+                app:setOrientation="@{orientation}" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

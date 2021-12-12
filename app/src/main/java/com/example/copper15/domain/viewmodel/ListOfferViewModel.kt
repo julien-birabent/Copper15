@@ -11,6 +11,7 @@ import io.reactivex.Flowable
 import io.reactivex.processors.BehaviorProcessor
 import io.reactivex.rxkotlin.combineLatest
 import io.reactivex.subjects.BehaviorSubject
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -49,6 +50,8 @@ class ListOfferViewModel @Inject constructor(getAllOffersUseCase: GetAllOffersUs
 
     private val _allOffers: Flowable<ResultState<List<Offer>>> = sortOffers
         .flatMap { getAllOffersUseCase.execute(it) }
+        .throttleLatest(1, TimeUnit.SECONDS)
+        .distinctUntilChanged()
         .retryWhen(retryFetchOffers)
 
     val allOffers: LiveData<ResultState<List<Offer>>> = _allOffers.toLiveData()

@@ -42,6 +42,7 @@ class OfferListFragment : BaseFragment<FragmentListOfferBinding, ListOfferViewMo
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupSortingButtons()
+        setupSwipeRefreshLayout()
     }
 
     override fun onStart() {
@@ -79,6 +80,13 @@ class OfferListFragment : BaseFragment<FragmentListOfferBinding, ListOfferViewMo
 
             offerListSortingByNameButton.isChecked = false
             offerListSortingByCashButton.isChecked = false
+        }
+    }
+
+    private fun setupSwipeRefreshLayout(){
+        layoutBinding.offerList.componentListSwipeRefreshContainer.setOnRefreshListener {
+            viewModel.retryToFetchOffers()
+            layoutBinding.offerList.componentListSwipeRefreshContainer.isRefreshing
         }
     }
 
