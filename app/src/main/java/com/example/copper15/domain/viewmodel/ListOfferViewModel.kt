@@ -10,15 +10,15 @@ import com.example.copper15.domain.usecase.GetAllOffersUseCase
 import io.reactivex.Flowable
 import io.reactivex.processors.BehaviorProcessor
 import io.reactivex.rxkotlin.combineLatest
-import io.reactivex.subjects.BehaviorSubject
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
 
+const val LOADING_TIME = 1L
+
 @Singleton
 class ListOfferViewModel @Inject constructor(getAllOffersUseCase: GetAllOffersUseCase) :
     ViewModel() {
-
 
     //region Sorting logic and variables
     private val _sortByNameEnabled: BehaviorProcessor<Pair<OfferSort, Boolean>> =
@@ -28,8 +28,8 @@ class ListOfferViewModel @Inject constructor(getAllOffersUseCase: GetAllOffersUs
         BehaviorProcessor.createDefault(OfferSort.ByCashBack() to false)
 
     private val sortOffers: Flowable<List<OfferSort>> =
-        listOf(_sortByNameEnabled, _sortByCashBackEnabled).combineLatest { sorterList ->
-            sorterList.filter { (_, isSorterEnabled) ->
+        listOf(_sortByNameEnabled, _sortByCashBackEnabled).combineLatest { offerSortList ->
+            offerSortList.filter { (_, isSorterEnabled) ->
                 isSorterEnabled
             }.map { (sorter, _) ->
                 sorter
@@ -44,13 +44,13 @@ class ListOfferViewModel @Inject constructor(getAllOffersUseCase: GetAllOffersUs
     //endregion
 
     //region List of offers logic and variable
-    private val retryFetchOffers : BehaviorProcessor<Unit> = BehaviorProcessor.create()
+    private val retryFetchOffers: BehaviorProcessor<Unit> = BehaviorProcessor.create()
 
-    fun retryToFetchOffers () = retryFetchOffers.onNext(Unit)
+    fun retryToFetchOffers() = retryFetchOffers.onNext(Unit)
 
     private val _allOffers: Flowable<ResultState<List<Offer>>> = sortOffers
         .flatMap { getAllOffersUseCase.execute(it) }
-        .throttleLatest(1, TimeUnit.SECONDS)
+        .throttleLatest(LOADING_TIME, TimeUnit.SECONDS)
         .distinctUntilChanged()
         .retryWhen(retryFetchOffers)
 
@@ -64,6 +64,7 @@ class ListOfferViewModel @Inject constructor(getAllOffersUseCase: GetAllOffersUs
         .toLiveData()
     //endregion
 
+    // This will re-emit when the retry flowable emits.
     private fun <T> Flowable<T>.retryWhen(retry: Flowable<Unit>): Flowable<T> =
         Flowable.merge(Flowable.just(Unit), retry)
             .switchMap {

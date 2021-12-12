@@ -27,7 +27,6 @@ class GetAllOffersUseCase @Inject constructor(
                 }
                 ResultState.createFromSameType(resultState, resultStateData)
             }
-            .distinctUntilChanged()
             .subscribeOn(appSchedulerProvider.io())
             .observeOn(appSchedulerProvider.mainThread())
     }

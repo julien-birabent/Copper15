@@ -51,11 +51,12 @@ class OfferListFragment : BaseFragment<FragmentListOfferBinding, ListOfferViewMo
         viewModel.allOffers.observe(owner = viewLifecycleOwner) { results ->
             when(results){
                 is ResultState.Error -> showErrorSnackBar()
-                else -> {
-                    results.data?.let { offersList ->
+                is ResultState.Success -> {
+                    results.data.let { offersList ->
                         adapter.updateList(createAdapterList(offersList))
                     }
                 }
+                else -> {}
             }
         }
     }
