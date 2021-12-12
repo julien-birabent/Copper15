@@ -14,8 +14,6 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
 
-const val LOADING_TIME = 1L
-
 @Singleton
 class ListOfferViewModel @Inject constructor(getAllOffersUseCase: GetAllOffersUseCase) :
     ViewModel() {
@@ -50,7 +48,6 @@ class ListOfferViewModel @Inject constructor(getAllOffersUseCase: GetAllOffersUs
 
     private val _allOffers: Flowable<ResultState<List<Offer>>> = sortOffers
         .flatMap { getAllOffersUseCase.execute(it) }
-        .throttleLatest(LOADING_TIME, TimeUnit.SECONDS)
         .distinctUntilChanged()
         .retryWhen(retryFetchOffers)
 
