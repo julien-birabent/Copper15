@@ -9,8 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="off_white">#BCC8D1</color>
 
-    <color name="colorPrimary">#4C9B4F</color>
-    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorPrimary">@color/purple_200</color>
+    <color name="colorPrimaryDark">@color/purple_500</color>
     <color name="colorAccent">#A8EAFF</color>
     <color name="slightly_purple">#E4E1E9</color>
     <color name="light_gray">#ECECEC</color>

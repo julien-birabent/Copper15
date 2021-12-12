@@ -6,4 +6,6 @@
     <string name="body_cash_back_eligibility">%s Cash Back</string>
     <string name="list_sorting_options_by_name">by Name</string>
     <string name="list_sorting_options_by_cash_back">by Cash Back</string>
+    <string name="snackbar_retry_action">Retry</string>
+    <string name="snackbar_error_message">Something went wrong</string>
 </resources>

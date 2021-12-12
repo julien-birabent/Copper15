@@ -1,10 +1,7 @@
 package com.example.copper15.ui.screen.offers
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.CompoundButton
-import android.widget.Toast
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
@@ -20,6 +17,10 @@ import com.example.copper15.ui.adapter.ItemSelectionCallback
 import com.example.copper15.ui.adapter.ViewTypeHolder
 import com.example.copper15.ui.item.OfferListItem
 import com.example.copper15.ui.screen.BaseFragment
+import com.google.android.material.snackbar.Snackbar
+
+
+
 
 
 class OfferListFragment : BaseFragment<FragmentListOfferBinding, ListOfferViewModel>() {
@@ -46,19 +47,25 @@ class OfferListFragment : BaseFragment<FragmentListOfferBinding, ListOfferViewMo
     override fun onStart() {
         super.onStart()
 
-        viewModel.allOffers.observe(viewLifecycleOwner) { results ->
-            if (results !is ResultState.Error) {
-                results.data?.let { offersList ->
-                    adapter.updateList(createAdapterList(offersList))
+        viewModel.allOffers.observe(owner = viewLifecycleOwner) { results ->
+            when(results){
+                is ResultState.Error -> showErrorSnackBar()
+                else -> {
+                    results.data?.let { offersList ->
+                        adapter.updateList(createAdapterList(offersList))
+                    }
                 }
-            } else {
-                Toast.makeText(
-                    requireContext(),
-                    "Couldn't load the list of offers",
-                    Toast.LENGTH_SHORT
-                ).show()
             }
         }
+    }
+
+    private fun showErrorSnackBar(){
+        Snackbar.make(layoutBinding.root, getText(R.string.snackbar_error_message), Snackbar.LENGTH_INDEFINITE).apply {
+            setAction(R.string.snackbar_retry_action){
+                viewModel.retryToFetchOffers()
+                this.dismiss()
+            }
+        }.show()
     }
 
     private fun setupSortingButtons() {

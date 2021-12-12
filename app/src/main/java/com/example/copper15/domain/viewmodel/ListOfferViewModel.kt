@@ -10,6 +10,7 @@ import com.example.copper15.domain.usecase.GetAllOffersUseCase
 import io.reactivex.Flowable
 import io.reactivex.processors.BehaviorProcessor
 import io.reactivex.rxkotlin.combineLatest
+import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -42,8 +43,13 @@ class ListOfferViewModel @Inject constructor(getAllOffersUseCase: GetAllOffersUs
     //endregion
 
     //region List of offers logic and variable
+    private val retryFetchOffers : BehaviorProcessor<Unit> = BehaviorProcessor.create()
+
+    fun retryToFetchOffers () = retryFetchOffers.onNext(Unit)
+
     private val _allOffers: Flowable<ResultState<List<Offer>>> = sortOffers
         .flatMap { getAllOffersUseCase.execute(it) }
+        .retryWhen(retryFetchOffers)
 
     val allOffers: LiveData<ResultState<List<Offer>>> = _allOffers.toLiveData()
 
@@ -54,4 +60,10 @@ class ListOfferViewModel @Inject constructor(getAllOffersUseCase: GetAllOffersUs
         .distinctUntilChanged()
         .toLiveData()
     //endregion
+
+    private fun <T> Flowable<T>.retryWhen(retry: Flowable<Unit>): Flowable<T> =
+        Flowable.merge(Flowable.just(Unit), retry)
+            .switchMap {
+                this
+            }
 }
