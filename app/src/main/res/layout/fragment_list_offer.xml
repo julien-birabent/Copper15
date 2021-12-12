@@ -46,12 +46,9 @@
         <androidx.appcompat.widget.AppCompatToggleButton
             android:id="@+id/offer_list_sorting_by_cash_button"
             style="@style/SortButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:textOff="@string/list_sorting_options_by_cash_back"
             android:textOn="@string/list_sorting_options_by_cash_back"
-            android:text="@string/list_sorting_options_by_cash_back"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/offer_list_sorting_by_name_button"
             app:layout_constraintTop_toBottomOf="@id/offer_list_title" />

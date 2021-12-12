@@ -22,37 +22,13 @@ class DataBindingGenericAdapter : RecyclerView.Adapter<DataBindingGenericViewHol
         return items.count()
     }
 
-    fun switchToGridLayout(
-        recyclerView: RecyclerView,
-        orientation: Int = RecyclerView.VERTICAL,
-        spanCount: Int = 1,
-        gridPattern: ((item: Any?, position: Int, layoutResId: Int) -> Int)? = null
-    ) {
-
-        val spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int): Int {
-                return gridPattern?.invoke(
-                    items[position].viewData,
-                    position,
-                    items[position].layoutResId
-                ) ?: 1
-            }
-        }
-        recyclerView.layoutManager = LayoutManagerFactory.createGridLayoutManager(
-            recyclerView,
-            spanCount,
-            orientation,
-            spanSizeLookup
-        )
-    }
-
     fun updateList(newList: List<ViewTypeHolder<*, *>>) {
         val diffUtil = getDiffUtilCallback(this.items, newList)
         if (diffUtil != null) {
             val result = DiffUtil.calculateDiff(diffUtil)
-            result.dispatchUpdatesTo(this)
             this.items.clear()
             this.items.addAll(newList)
+            result.dispatchUpdatesTo(this)
         } else {
             setItems(newList)
         }

@@ -1,8 +1,13 @@
 package com.example.copper15.ui.screen.offers
 
+import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import com.example.copper15.BR
 import com.example.copper15.R
 import com.example.copper15.data.repository.ResultState
@@ -33,6 +38,11 @@ class OfferListFragment : BaseFragment<FragmentListOfferBinding, ListOfferViewMo
         layoutBinding.setVariable(BR.adapter, adapter)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupSortingButtons()
+    }
+
     override fun onStart() {
         super.onStart()
 
@@ -41,9 +51,27 @@ class OfferListFragment : BaseFragment<FragmentListOfferBinding, ListOfferViewMo
                 results.data?.let { offersList ->
                     adapter.updateList(createAdapterList(offersList))
                 }
-            }else{
-                Toast.makeText(requireContext(), "Couldn't load the list of offers", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    "Couldn't load the list of offers",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
+        }
+    }
+
+    private fun setupSortingButtons() {
+        layoutBinding.run {
+            offerListSortingByNameButton.setOnCheckedChangeListener { _, isChecked ->
+                this@OfferListFragment.viewModel.sortOfferByName(isChecked)
+            }
+            offerListSortingByCashButton.setOnCheckedChangeListener { _, isChecked ->
+                this@OfferListFragment.viewModel.sortOfferByCashBack(isChecked)
+            }
+
+            offerListSortingByNameButton.isChecked = false
+            offerListSortingByCashButton.isChecked = false
         }
     }
 

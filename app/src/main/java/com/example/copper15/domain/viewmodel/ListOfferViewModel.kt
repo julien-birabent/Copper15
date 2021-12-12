@@ -5,8 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.toLiveData
 import com.example.copper15.data.repository.ResultState
 import com.example.copper15.domain.model.Offer
+import com.example.copper15.domain.model.OfferSort
 import com.example.copper15.domain.usecase.GetAllOffersUseCase
 import io.reactivex.Flowable
+import io.reactivex.processors.BehaviorProcessor
+import io.reactivex.rxkotlin.combineLatest
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -15,17 +18,46 @@ class ListOfferViewModel @Inject constructor(getAllOffersUseCase: GetAllOffersUs
     ViewModel() {
 
 
-    private val _allOffers : Flowable<ResultState<List<Offer>>> = getAllOffersUseCase.execute()
+    //region Sorting logic and variables
+    private val _sortByNameEnabled: BehaviorProcessor<Pair<OfferSort, Boolean>> =
+        BehaviorProcessor.createDefault(OfferSort.ByName() to false)
 
-    val allOffers : LiveData<ResultState<List<Offer>>> = getAllOffersUseCase.execute()
-        .toLiveData()
+    val sortByNameEnabled: LiveData<Boolean>
+        get() = _sortByNameEnabled.map { (_, isEnabled) -> isEnabled }.toLiveData()
 
-    val isLoadingOffers : LiveData<Boolean> = _allOffers
-        .takeUntil { it !is ResultState.Loading }
+    private val _sortByCashBackEnabled: BehaviorProcessor<Pair<OfferSort, Boolean>> =
+        BehaviorProcessor.createDefault(OfferSort.ByCashBack() to false)
+
+    val sortByNameCashBack: LiveData<Boolean>
+        get() = _sortByCashBackEnabled.map { (_, isEnabled) -> isEnabled }.toLiveData()
+
+    private val sortOffers: Flowable<List<OfferSort>> =
+        listOf(_sortByNameEnabled, _sortByCashBackEnabled).combineLatest { sorterList ->
+            sorterList.filter { (_, isSorterEnabled) ->
+                isSorterEnabled
+            }.map { (sorter, _) ->
+                sorter
+            }
+        }
+    
+    fun sortOfferByName(isEnabled: Boolean) =
+        _sortByNameEnabled.onNext(OfferSort.ByName() to isEnabled)
+
+    fun sortOfferByCashBack(isEnabled: Boolean) =
+        _sortByCashBackEnabled.onNext(OfferSort.ByCashBack() to isEnabled)
+    //endregion
+
+    //region List of offers logic and variable
+    private val _allOffers: Flowable<ResultState<List<Offer>>> = sortOffers
+        .flatMap { getAllOffersUseCase.execute(it) }
+
+    val allOffers: LiveData<ResultState<List<Offer>>> = _allOffers.toLiveData()
+
+    val isLoadingOffers: LiveData<Boolean> = _allOffers
         .map {
             it is ResultState.Loading
         }
         .distinctUntilChanged()
         .toLiveData()
-
+    //endregion
 }
