@@ -18,7 +18,7 @@ class OfferRepository @Inject constructor(
     private val offerModelAssembler: OfferModelAssembler
 ) {
     fun getAllOffers(): Flowable<ResultState<List<Offer>>> {
-        return Flowable.concat(loadCachedData(), fetchDataFromService())
+        return Flowable.concatDelayError(listOf(loadCachedData(), fetchDataFromService()))
             .onErrorReturn {
                 ResultState.Error(it, null)
             }
