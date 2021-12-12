@@ -3,7 +3,6 @@ package com.example.copper15.di.component
 import android.app.Application
 import com.example.copper15.app.ThisApplication
 import com.example.copper15.di.module.*
-import com.example.copper15.domain.usecase.AsyncUseCase
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -18,7 +17,7 @@ import javax.inject.Singleton
         AppModule::class,
         ViewModule::class,
         ViewModelModule::class,
-        DataSourceModule::class,
+        DatabaseModule::class,
         RepositoryModule::class]
 )
 interface ApplicationComponent :AndroidInjector<ThisApplication> {
