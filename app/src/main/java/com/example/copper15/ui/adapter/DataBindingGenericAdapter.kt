@@ -11,9 +11,9 @@ import com.example.copper15.ui.LayoutManagerFactory
 
 class DataBindingGenericAdapter : RecyclerView.Adapter<DataBindingGenericViewHolder>() {
 
-    private var items: MutableList<ViewTypeHolder<*, *>> = mutableListOf()
+    private var items: MutableList<ViewTypeHolder<*>> = mutableListOf()
 
-    private fun setItems(listItems: List<ViewTypeHolder<*, *>>) {
+    private fun setItems(listItems: List<ViewTypeHolder<*>>) {
         this.items = listItems.toMutableList()
         notifyDataSetChanged()
     }
@@ -22,7 +22,7 @@ class DataBindingGenericAdapter : RecyclerView.Adapter<DataBindingGenericViewHol
         return items.count()
     }
 
-    fun updateList(newList: List<ViewTypeHolder<*, *>>) {
+    fun updateList(newList: List<ViewTypeHolder<*>>) {
         val diffUtil = getDiffUtilCallback(this.items, newList)
         if (diffUtil != null) {
             val result = DiffUtil.calculateDiff(diffUtil)
@@ -35,9 +35,9 @@ class DataBindingGenericAdapter : RecyclerView.Adapter<DataBindingGenericViewHol
     }
 
     private fun getDiffUtilCallback(
-        oldList: List<ViewTypeHolder<*, *>>,
-        newList: List<ViewTypeHolder<*, *>>
-    ): BaseDiffCallback<ViewTypeHolder<*, *>>? {
+        oldList: List<ViewTypeHolder<*>>,
+        newList: List<ViewTypeHolder<*>>
+    ): BaseDiffCallback<ViewTypeHolder<*>> {
         return BaseDiffCallback(oldList, newList, areItemsTheSame = { oldItem, newItem ->
             oldItem == newItem
         }, areContentTheSame = { oldItem, newItem ->

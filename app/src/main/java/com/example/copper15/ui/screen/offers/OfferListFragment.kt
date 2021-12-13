@@ -91,11 +91,11 @@ class OfferListFragment : BaseFragment<FragmentListOfferBinding, ListOfferViewMo
         }
     }
 
-    private fun createAdapterList(offers: List<Offer>): List<ViewTypeHolder<OfferListItem<Offer>, ItemSelectionCallback<*>>> {
+    private fun createAdapterList(offers: List<Offer>): List<ViewTypeHolder<OfferListItem<Offer>>> {
         return offers.map { createItemViewTypeHolder(it) }
     }
 
-    private fun createItemViewTypeHolder(item: Offer): ViewTypeHolder<OfferListItem<Offer>, ItemSelectionCallback<*>> {
+    private fun createItemViewTypeHolder(item: Offer): ViewTypeHolder<OfferListItem<Offer>> {
         return ViewTypeHolder(
             viewData = OfferListItem(item.name, item.imageUrl, item.cashBack.toString(), item),
             layoutResId = R.layout.item_offer_card

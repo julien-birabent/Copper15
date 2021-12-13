@@ -8,9 +8,6 @@ interface OfferDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertOffers(vararg offers: OfferEntity)
 
-    @Update
-    fun updateOffers(offers: Array<out OfferEntity>)
-
     @Query("SELECT * FROM offers")
     fun loadAllOffers(): Single<List<OfferEntity>>
 }

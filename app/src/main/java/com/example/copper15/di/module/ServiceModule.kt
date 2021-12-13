@@ -37,7 +37,7 @@ class ServiceModule {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(okHttpClient)
-            // Since we are only using myjson for this example the base url isn't needed but we still have to define it to avoid throwing an exception
+            // The base url isn't needed but we still have to define it to avoid throwing an exception
             .baseUrl("http://localhost/")
             .build()
 

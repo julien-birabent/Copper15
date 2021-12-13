@@ -7,10 +7,9 @@ import com.example.copper15.BR
 class DataBindingGenericViewHolder(val binding: ViewDataBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(viewTypeHolder: ViewTypeHolder<*, *>) {
+    fun bind(viewTypeHolder: ViewTypeHolder<*>) {
         with(viewTypeHolder) {
             binding.setVariable(BR.item, viewData)
-            //callback?.let { binding.setVariable(BR.callback, callback) }
             binding.executePendingBindings()
         }
     }

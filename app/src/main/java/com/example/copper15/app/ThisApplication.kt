@@ -15,16 +15,6 @@ class ThisApplication : DaggerApplication() {
     @Inject
     lateinit var dispatchingInjector: DispatchingAndroidInjector<Any>
 
-    init {
-        instance = this
-    }
-
-    companion object {
-        private var instance: ThisApplication? = null
-
-        fun applicationComponent(): ApplicationComponent? = instance?.component
-    }
-
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
         component = DaggerApplicationComponent.builder()
             .application(this)

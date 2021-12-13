@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class OfferModelAssembler @Inject constructor() {
 
-    fun assemble(offerEntity: OfferEntity): Offer = offerEntity.run {
+    private fun assemble(offerEntity: OfferEntity): Offer = offerEntity.run {
         Offer(id.toString(), name, imageUrl, cashBack)
     }
 

@@ -37,8 +37,4 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-
-    <style name="Theme.Copper15.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.Copper15.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
