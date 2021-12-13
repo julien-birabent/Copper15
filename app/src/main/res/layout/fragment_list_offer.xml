@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+        <import type="androidx.recyclerview.widget.RecyclerView" />
+
+        <variable
+            name="adapter"
+            type="com.example.copper15.ui.adapter.DataBindingGenericAdapter" />
+        <variable
+            name="viewModel"
+            type="com.example.copper15.domain.viewmodel.ListOfferViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/ViewContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/offer_list_title"
+            style="@style/Header.Large"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/header_background"
+            android:text="@string/title_shop"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatToggleButton
+            android:id="@+id/offer_list_sorting_by_name_button"
+            style="@style/SortButton"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:textOff="@string/list_sorting_options_by_name"
+            android:textOn="@string/list_sorting_options_by_name"
+            app:layout_constraintEnd_toStartOf="@+id/offer_list_sorting_by_cash_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/offer_list_title" />
+
+        <androidx.appcompat.widget.AppCompatToggleButton
+            android:id="@+id/offer_list_sorting_by_cash_button"
+            style="@style/SortButton"
+            android:layout_marginTop="8dp"
+            android:textOff="@string/list_sorting_options_by_cash_back"
+            android:textOn="@string/list_sorting_options_by_cash_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/offer_list_sorting_by_name_button"
+            app:layout_constraintTop_toBottomOf="@id/offer_list_title" />
+
+        <include
+            android:id="@+id/offer_list"
+            layout="@layout/component_list_with_loading_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/offer_list_sorting_by_name_button"
+            bind:adapter="@{adapter}"
+            bind:isLoading="@{viewModel.isLoadingOffers}"
+            bind:orientation="@{RecyclerView.VERTICAL}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

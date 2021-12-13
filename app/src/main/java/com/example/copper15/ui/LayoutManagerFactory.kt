@@ -1,10 +1,12 @@
 package com.example.copper15.ui
 
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.copper15.R
+import com.example.copper15.domain.model.Offer
 
 class LayoutManagerFactory {
 
@@ -18,28 +20,9 @@ class LayoutManagerFactory {
             }
         }
 
-        fun createGridLayoutManager(
-            recyclerView: RecyclerView,
-            spanCount: Int,
-            orientation: Int,
-            spanSizeLookup: GridLayoutManager.SpanSizeLookup? = GridLayoutManager.DefaultSpanSizeLookup()
-        ): GridLayoutManager {
-            return GridLayoutManager(recyclerView.context, spanCount, orientation, false).apply {
-                this.spanSizeLookup = spanSizeLookup
-                applyDecorations(recyclerView, orientation)
-            }
-        }
-
         private fun applyDecorations(recyclerView: RecyclerView, orientation: Int) {
-            val dividerItemDecoration = DividerItemDecoration(
-                recyclerView.context,
-                orientation
-            ).apply {
-                recyclerView.context.getDrawable(R.drawable.item_decoration_divider_transparent)
-                    ?.let {
-                        setDrawable(it)
-                    }
-            }
+            val dividerDrawable = AppCompatResources.getDrawable(recyclerView.context,R.drawable.item_decoration_divider_transparent)
+            val dividerItemDecoration = DividerItemDecoration(recyclerView.context, orientation).apply { dividerDrawable?.let { setDrawable(it) } }
             recyclerView.addItemDecoration(dividerItemDecoration)
         }
     }
