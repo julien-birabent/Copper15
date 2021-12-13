@@ -5,12 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.toLiveData
 import com.example.copper15.data.repository.ResultState
 import com.example.copper15.domain.model.Offer
-import com.example.copper15.domain.model.OfferSort
+import com.example.copper15.domain.model.SortOfferCriteria
 import com.example.copper15.domain.usecase.GetAllOffersUseCase
 import io.reactivex.Flowable
 import io.reactivex.processors.BehaviorProcessor
 import io.reactivex.rxkotlin.combineLatest
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -19,26 +18,26 @@ class ListOfferViewModel @Inject constructor(getAllOffersUseCase: GetAllOffersUs
     ViewModel() {
 
     //region Sorting logic and variables
-    private val _sortByNameEnabled: BehaviorProcessor<Pair<OfferSort, Boolean>> =
-        BehaviorProcessor.createDefault(OfferSort.ByName() to false)
+    private val _sortByNameEnabled: BehaviorProcessor<Pair<SortOfferCriteria, Boolean>> =
+        BehaviorProcessor.createDefault(SortOfferCriteria.ByName() to false)
 
-    private val _sortByCashBackEnabled: BehaviorProcessor<Pair<OfferSort, Boolean>> =
-        BehaviorProcessor.createDefault(OfferSort.ByCashBack() to false)
+    private val _sortByCashBackEnabled: BehaviorProcessor<Pair<SortOfferCriteria, Boolean>> =
+        BehaviorProcessor.createDefault(SortOfferCriteria.ByCashBack() to false)
 
-    private val sortOffers: Flowable<List<OfferSort>> =
-        listOf(_sortByNameEnabled, _sortByCashBackEnabled).combineLatest { offerSortList ->
-            offerSortList.filter { (_, isSorterEnabled) ->
-                isSorterEnabled
+    private val sortingCriterias: Flowable<List<SortOfferCriteria>> =
+        listOf(_sortByNameEnabled, _sortByCashBackEnabled).combineLatest { sortCriteriaList ->
+            sortCriteriaList.filter { (_, isCriteriaEnabled) ->
+                isCriteriaEnabled
             }.map { (sorter, _) ->
                 sorter
             }
         }
 
     fun sortOfferByName(isEnabled: Boolean) =
-        _sortByNameEnabled.onNext(OfferSort.ByName() to isEnabled)
+        _sortByNameEnabled.onNext(SortOfferCriteria.ByName() to isEnabled)
 
     fun sortOfferByCashBack(isEnabled: Boolean) =
-        _sortByCashBackEnabled.onNext(OfferSort.ByCashBack() to isEnabled)
+        _sortByCashBackEnabled.onNext(SortOfferCriteria.ByCashBack() to isEnabled)
     //endregion
 
     //region List of offers logic and variable
@@ -46,7 +45,7 @@ class ListOfferViewModel @Inject constructor(getAllOffersUseCase: GetAllOffersUs
 
     fun retryToFetchOffers() = retryFetchOffers.onNext(Unit)
 
-    private val _allOffers: Flowable<ResultState<List<Offer>>> = sortOffers
+    private val _allOffers: Flowable<ResultState<List<Offer>>> = sortingCriterias
         .flatMap { getAllOffersUseCase.execute(it) }
         .distinctUntilChanged()
         .retryWhen(retryFetchOffers)

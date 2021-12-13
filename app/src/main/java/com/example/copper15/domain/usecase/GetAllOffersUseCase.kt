@@ -4,18 +4,19 @@ import com.example.copper15.data.repository.OfferRepository
 import com.example.copper15.data.repository.ResultState
 import com.example.copper15.data.repository.data
 import com.example.copper15.domain.model.Offer
-import com.example.copper15.domain.model.OfferSort
+import com.example.copper15.domain.model.SortOfferCriteria
 import com.example.copper15.thread.AppSchedulerProvider
+import com.example.copper15.thread.SchedulerProvider
 import io.reactivex.Flowable
 import javax.inject.Inject
 
 
 class GetAllOffersUseCase @Inject constructor(
     private val offerRepository: OfferRepository,
-    appSchedulerProvider: AppSchedulerProvider
-) : AsyncUseCase<List<OfferSort>, ResultState<List<Offer>>>(appSchedulerProvider) {
+    schedulerProvider: SchedulerProvider
+) : AsyncUseCase<List<SortOfferCriteria>, ResultState<List<Offer>>>(schedulerProvider) {
 
-    override fun build(params: List<OfferSort>): Flowable<ResultState<List<Offer>>> {
+    override fun build(params: List<SortOfferCriteria>): Flowable<ResultState<List<Offer>>> {
         return offerRepository.getAllOffers()
             .map { resultState ->
                 val resultStateData = if (params.isEmpty()) {
@@ -27,9 +28,8 @@ class GetAllOffersUseCase @Inject constructor(
                 }
                 ResultState.createFromSameType(resultState, resultStateData)
             }
-            .cache()
-            .subscribeOn(appSchedulerProvider.io())
-            .observeOn(appSchedulerProvider.mainThread())
+            .subscribeOn(schedulerProvider.io())
+            .observeOn(schedulerProvider.mainThread())
     }
 
 }
